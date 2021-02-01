@@ -1,11 +1,13 @@
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.TreeMap;
 
-public class Account {
+public class Account implements Serializable {
 
+    private static final long serialVersionUID = -8002487482721421078L;
     private String firstName;
     private String lastName;
     private String username;

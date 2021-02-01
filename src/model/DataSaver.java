@@ -6,4 +6,12 @@ public class DataSaver {
 
     }
 
+//    public static UserDatabase loadUserData(){
+//
+//    }
+//
+//    public static TrailsDatabase loadTrailsData(){
+//
+//    }
+
 }

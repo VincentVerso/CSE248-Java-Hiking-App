@@ -1,9 +1,51 @@
 package model;
 
+import java.io.Serializable;
 import java.util.TreeMap;
 
-public class UserDatabase {
+public class UserDatabase implements Serializable{
 
-    //private TreeMap<String, >
+
+    private static final long serialVersionUID = 439299753267505107L;
+    private TreeMap<String, Account> userDatabase;
+
+    public UserDatabase(){
+        userDatabase = new TreeMap<String, Account>();
+    }
+
+    //Checks to see if a user is already in the database.
+    public boolean contains(String username){
+        if(userDatabase.containsKey(username)){
+            return true;
+        }
+        return false;
+    }
+
+    //Adds an account if it does not exist in the database, return true(successfully added)
+    //If the account does exist return false.
+    public boolean addUserAccount(UserAccount account){
+        if(!userDatabase.containsKey(account.getUsername())){
+            userDatabase.put(account.getUsername(), account);
+            return true;
+        }
+        return false;
+    }
+
+    //Returns true if the account was removed, false if not.
+    public boolean removeAccount(String userName){
+        if(userDatabase.containsKey(userName)){
+            userDatabase.remove(userName);
+            return true;
+        }
+        return false;
+    }
+
+    public Account getAccount(String userName){
+
+        if(userDatabase.containsKey(userName)){
+            return userDatabase.get(userName);
+        }
+        return null;
+    }
 
 }
