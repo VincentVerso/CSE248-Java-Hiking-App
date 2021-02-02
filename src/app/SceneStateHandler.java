@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import model.DataSaver;
 import model.TrailsDatabase;
 import model.UserDatabase;
 
@@ -14,7 +15,8 @@ import java.io.IOException;
 public class SceneStateHandler {
 
     private FXMLLoader loader;
-    private Scene scene;
+    private Scene loginScene;
+    private Scene signupScene;
     private Stage primaryStage;
 
     private UserDatabase userDatabase;
@@ -35,8 +37,8 @@ public class SceneStateHandler {
         loadData(); //Load the data(if available) before doing anything else.
         this.primaryStage = primaryStage;
 
-        loginViewController = new LoginViewController();
-        signupViewController = new SignupViewController();
+        loginViewController = new LoginViewController(this, userDatabase);
+        signupViewController = new SignupViewController(this, userDatabase);
 
         try{
             loader = new FXMLLoader(getClass().getResource("view/LoginView.fxml"));
@@ -46,8 +48,8 @@ public class SceneStateHandler {
             e.printStackTrace();
         }
 
-        scene = new Scene(loginParent, 1280, 720);
-        primaryStage.setScene(scene);
+        loginScene = new Scene(loginParent, 1280, 720);
+        primaryStage.setScene(loginScene);
         primaryStage.setTitle("Hiking App");
         primaryStage.show();
 
@@ -58,11 +60,34 @@ public class SceneStateHandler {
 
     }
 
+    //Loads the signup scene
+    public void changeSceneSignup(){
+        try {
+            loader = new FXMLLoader(getClass().getResource("view/SignupView.fxml"));
+            loader.setController(signupViewController);
+            signupParent = loader.load();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
 
+        //Setup the scene and stage, show it.
+        signupScene = new Scene(signupParent, 1280, 720);
+        primaryStage.setScene(signupScene);
+        primaryStage.setTitle("Hiking App");
+        primaryStage.show();
+    }
 
     //Loads data if it exists
     private void loadData(){
-
+        //Load data, if not file instantiate the classes.
+        userDatabase = DataSaver.loadUserData();
+        if(userDatabase == null){
+            userDatabase = new UserDatabase();
+        }
+        trailsDatabase = DataSaver.loadTrailsData();
+        if(trailsDatabase == null){
+            trailsDatabase = new TrailsDatabase();
+        }
     }
 
 }
