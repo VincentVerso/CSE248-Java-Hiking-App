@@ -15,8 +15,7 @@ import java.io.IOException;
 public class SceneStateHandler {
 
     private FXMLLoader loader;
-    private Scene loginScene;
-    private Scene signupScene;
+    private Scene scene;
     private Stage primaryStage;
 
     private UserDatabase userDatabase;
@@ -48,16 +47,26 @@ public class SceneStateHandler {
             e.printStackTrace();
         }
 
-        loginScene = new Scene(loginParent, 1280, 720);
-        primaryStage.setScene(loginScene);
+        scene = new Scene(loginParent, 1280, 720);
+        primaryStage.setScene(scene);
         primaryStage.setTitle("Hiking App");
         primaryStage.show();
 
     }
 
-    //TODO: Implement method. Instead of checking if the user is admin or not, just load 'User View'. If admin they can change from that scene
     public void changeSceneAfterLogin(){
+        try {
+            loader = new FXMLLoader(getClass().getResource("view/LoginView.fxml"));
+            loader.setController(loginViewController);
+            loginParent = loader.load();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
 
+        //Set the scenes root show it.
+        scene.setRoot(loginParent);
+        primaryStage.setTitle("Hiking App");
+        primaryStage.show();
     }
 
     //Loads the signup scene
@@ -71,8 +80,8 @@ public class SceneStateHandler {
         }
 
         //Setup the scene and stage, show it.
-        signupScene = new Scene(signupParent, 1280, 720);
-        primaryStage.setScene(signupScene);
+        scene.setRoot(signupParent);
+        primaryStage.setScene(scene);
         primaryStage.setTitle("Hiking App");
         primaryStage.show();
     }

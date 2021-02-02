@@ -5,9 +5,8 @@ import java.util.TreeMap;
 
 public class UserDatabase implements Serializable{
 
-
     private static final long serialVersionUID = 439299753267505107L;
-    private TreeMap<String, Account> userDatabase;
+    private TreeMap<String, Account> userDatabase; //Can support any amount of users
 
     public UserDatabase(){
         userDatabase = new TreeMap<String, Account>();

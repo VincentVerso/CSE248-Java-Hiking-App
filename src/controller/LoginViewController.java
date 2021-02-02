@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import model.Account;
 import model.UserDatabase;
 
 public class LoginViewController {
@@ -28,6 +29,8 @@ public class LoginViewController {
     private SceneStateHandler sceneStateHandler;
     private UserDatabase userDatabase;
 
+    private Account loggedInUser;
+
     public LoginViewController(SceneStateHandler sceneStateHandler, UserDatabase userDatabase){
         this.sceneStateHandler = sceneStateHandler;
         this.userDatabase = userDatabase;
@@ -35,12 +38,32 @@ public class LoginViewController {
 
     @FXML
     public void loginEvent(ActionEvent event) {
+        String username = usernameField.getText();
+        String password = passwordField.getText();
+
+        if(isFieldsEmpty()){
+            notifyLbl.setText("Username or password is blank!");
+        }else{
+            if(userDatabase.contains(username)){
+                if(userDatabase.getAccount(username).getPassword().equals(password)){
+
+                }
+            }
+        }
 
     }
 
     @FXML
     public void signupEvent(ActionEvent event) {
 
+    }
+
+    private boolean isFieldsEmpty(){
+        if(usernameField.getText().isBlank() || passwordField.getText().isBlank()){
+            return true;
+        }else {
+            return false;
+        }
     }
 
 }

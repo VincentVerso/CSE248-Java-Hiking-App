@@ -26,7 +26,7 @@ public class Account implements Serializable {
         this.username = username;
         this.phoneNumber = phoneNumber;
         this.password = password;
-
+        this.profileImage = "src/default.png"; //Default image location
     }
 
     public String getFirstName() {
@@ -59,5 +59,21 @@ public class Account implements Serializable {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getProfileImage(){
+        return profileImage; //Returns the path of this users profile image
+    }
+
+    public String getPassword(){
+        return password;
+    }
+
+    public void setProfileImage(String imagePath){
+        this.profileImage = imagePath;
+    }
+
+    public TreeMap<LocalDate, LinkedList<TrailEntry>> getTrailHistory() {
+        return trailHistory;
     }
 }
