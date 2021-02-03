@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.TreeMap;
 
-public class Account implements Serializable {
+public class Account implements Serializable, Comparable<Account> {
 
     private static final long serialVersionUID = -8002487482721421078L;
     private String firstName;
@@ -75,5 +75,11 @@ public class Account implements Serializable {
 
     public TreeMap<LocalDate, LinkedList<TrailEntry>> getTrailHistory() {
         return trailHistory;
+    }
+
+    //TODO: Implement compareTo method.
+    @Override
+    public int compareTo(Account o) {
+        return 0;
     }
 }

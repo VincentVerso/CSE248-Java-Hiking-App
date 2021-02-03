@@ -8,6 +8,8 @@ import java.io.Serializable;
 public class TrailEntry implements Serializable {
 
     private static final long serialVersionUID = -7978166323068502140L;
+    private Trail trail; //The trail that was completed for this history entry.
+
 
     public TrailEntry(){
 
