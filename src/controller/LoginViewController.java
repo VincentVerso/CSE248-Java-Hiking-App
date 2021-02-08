@@ -46,8 +46,12 @@ public class LoginViewController {
         }else{
             if(userDatabase.contains(username)){
                 if(userDatabase.getAccount(username).getPassword().equals(password)){
-
+                    sceneStateHandler.changeSceneAfterLogin(username);
+                }else{
+                    notifyLbl.setText("Incorrect password!");
                 }
+            }else{
+                notifyLbl.setText("Username does not exits!");
             }
         }
 

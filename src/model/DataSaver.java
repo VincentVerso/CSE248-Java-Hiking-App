@@ -21,7 +21,7 @@ public class DataSaver {
         }
     }
 
-    public static void saveLibraryData(TrailsDatabase trailsDatabase){
+    public static void saveTrailsData(TrailsDatabase trailsDatabase){
         try {
             //Save the file
             FileOutputStream fs = new FileOutputStream("src/trailsdata.dat");
@@ -53,7 +53,7 @@ public class DataSaver {
 
             return database;
         }catch (IOException | ClassNotFoundException e){
-            e.printStackTrace();
+            //e.printStackTrace();
         }
         return null;
     }

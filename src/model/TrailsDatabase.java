@@ -12,6 +12,7 @@ public class TrailsDatabase implements Serializable {
 
     public TrailsDatabase(){
         trailDatabase = new HashMap<String, Trail>(50000, .5f);
+        addTrail(new Trail("Test Trail", "5 Test Ave., NY", 5, 2, TrailDifficulty.EASY, TrailType.LOOP));
     }
 
     //Checks to see if the trail exists or not.

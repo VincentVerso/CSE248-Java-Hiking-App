@@ -43,7 +43,7 @@ public class SceneStateHandler {
         signupViewController = new SignupViewController(this, userDatabase);
 
         try{
-            loader = new FXMLLoader(getClass().getResource("view/LoginView.fxml"));
+            loader = new FXMLLoader(getClass().getResource("LoginView.fxml"));
             loader.setController(loginViewController);
             loginParent = loader.load(); //Set the loginParent to the FXML that was loaded.
         }catch (IOException e){
@@ -61,7 +61,7 @@ public class SceneStateHandler {
         loggedInUser = userDatabase.getAccount(username);
         userViewController = new UserViewController(this, loggedInUser, userDatabase, trailsDatabase);
         try {
-            loader = new FXMLLoader(getClass().getResource("view/UserView.fxml"));
+            loader = new FXMLLoader(getClass().getResource("/view/UserView.fxml"));
             loader.setController(userViewController);
             userViewParent = loader.load();
         }catch (IOException e){
@@ -87,6 +87,21 @@ public class SceneStateHandler {
 
         //Setup the scene and stage, show it.
         scene.setRoot(signupParent);
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("Hiking App");
+        primaryStage.show();
+    }
+
+    public void backToLoginScene(){
+        try{
+            loader = new FXMLLoader(getClass().getResource("view/LoginView.fxml"));
+            loader.setController(loginViewController);
+            loginParent = loader.load(); //Set the loginParent to the FXML that was loaded.
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+        scene.setRoot(loginParent);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Hiking App");
         primaryStage.show();

@@ -54,12 +54,12 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="20.0" prefWidth="1280.0">
                <children>
-                  <Button id="signupBtn" fx:id="signupBtn" mnemonicParsing="false" text="Signup">
+                  <Button id="signupBtn" fx:id="signupBtn" mnemonicParsing="false" onAction="#signupEvent" text="Signup">
                      <HBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </HBox.margin>
                   </Button>
-                  <Button id="backBtn" fx:id="backBtn" layoutX="624.0" layoutY="48.0" mnemonicParsing="false" text="Back">
+                  <Button id="backBtn" fx:id="backBtn" layoutX="624.0" layoutY="48.0" mnemonicParsing="false" onAction="#backEvent" text="Back">
                      <HBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </HBox.margin>

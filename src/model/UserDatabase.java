@@ -10,6 +10,8 @@ public class UserDatabase implements Serializable{
 
     public UserDatabase(){
         userDatabase = new TreeMap<String, Account>();
+        addUserAccount(new AdminAccount("Vinny", "Verso", "Vin", "6311234567", "pass1234"));
+
     }
 
     //Checks to see if a user is already in the database.
@@ -22,7 +24,7 @@ public class UserDatabase implements Serializable{
 
     //Adds an account if it does not exist in the database, return true(successfully added)
     //If the account does exist return false.
-    public boolean addUserAccount(UserAccount account){
+    public boolean addUserAccount(Account account){
         if(!userDatabase.containsKey(account.getUsername())){
             userDatabase.put(account.getUsername(), account);
             return true;

@@ -9,12 +9,12 @@ public class Trail implements Serializable {
 
     private String trailName;
     private String trailHeadAddress;
-    private double length; //in miles
+    private int length; //in miles
     private int elevationGain; //in feet
     private TrailDifficulty difficulty;
     private TrailType trailType;
 
-    public Trail(String trailName, String trailHeadAddress, double length, int elevationGain, TrailDifficulty trailDifficulty, TrailType trailType){
+    public Trail(String trailName, String trailHeadAddress, int length, int elevationGain, TrailDifficulty trailDifficulty, TrailType trailType){
         this.trailName = trailName;
         this.trailHeadAddress = trailHeadAddress;
         this.length = length;
@@ -35,11 +35,11 @@ public class Trail implements Serializable {
         this.trailHeadAddress = trailHeadAddress;
     }
 
-    public double getLength() {
+    public int getLength() {
         return length;
     }
 
-    public void setLength(double length) {
+    public void setLength(int length) {
         this.length = length;
     }
 

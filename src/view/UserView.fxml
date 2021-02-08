@@ -1,13 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <BorderPane prefHeight="720.0" prefWidth="1280.0">
+         <top>
+            <MenuBar BorderPane.alignment="CENTER">
+              <menus>
+                <Menu mnemonicParsing="false" text="File">
+                  <items>
+                        <MenuItem id="editAccMenuBtn" fx:id="editAccMenuBtn" mnemonicParsing="false" onAction="#editAccountEvent" text="Edit Account" />
+                    <MenuItem id="exitMenuBtn" fx:id="exitMenuBtn" mnemonicParsing="false" onAction="#exitEvent" text="Exit" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                  <items>
+                    <MenuItem id="adminMenuBtn" fx:id="adminMenuBtn" mnemonicParsing="false" onAction="#changeAdminViewEvent" text="Admin" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+         </top>
+         <left>
+            <VBox prefHeight="524.0" prefWidth="445.0" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </BorderPane.margin>
+               <children>
+                  <HBox alignment="CENTER" prefHeight="14.0" prefWidth="417.0">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" text="Trails">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <TableView prefHeight="505.0" prefWidth="473.0">
+                    <columns>
+                      <TableColumn id="trailNameCol" fx:id="trailNameCol" prefWidth="113.0" text="Name" />
+                      <TableColumn id="headAddressCol" fx:id="headAddressCol" prefWidth="94.0" text="Head Address" />
+                        <TableColumn id="lengthCol" fx:id="lengthCol" prefWidth="55.0" text="Length" />
+                        <TableColumn id="elevationCol" fx:id="elevationCol" prefWidth="66.0" text="Elevation" />
+                        <TableColumn id="difficultyCol" fx:id="difficultyCol" prefWidth="69.0" text="Difficulty" />
+                        <TableColumn id="typeCol" fx:id="typeCol" prefWidth="44.0" text="Type" />
+                    </columns>
+                  </TableView>
+               </children>
+            </VBox>
+         </left>
+         <bottom>
+            <HBox prefHeight="161.0" prefWidth="1280.0" BorderPane.alignment="CENTER" />
+         </bottom>
+      </BorderPane>
+   </children>
 </AnchorPane>
