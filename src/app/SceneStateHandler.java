@@ -2,10 +2,12 @@ package app;
 
 import controller.LoginViewController;
 import controller.SignupViewController;
+import controller.UserViewController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import model.Account;
 import model.DataSaver;
 import model.TrailsDatabase;
 import model.UserDatabase;
@@ -26,11 +28,12 @@ public class SceneStateHandler {
     private Parent signupParent;
 
     private Parent userViewParent;
-    private Parent adminViewParent;
 
     //The controllers for each respective scene.
     private LoginViewController loginViewController;
     private SignupViewController signupViewController;
+    private UserViewController userViewController;
+    private Account loggedInUser;
 
     public SceneStateHandler(Stage primaryStage){
         loadData(); //Load the data(if available) before doing anything else.
@@ -54,17 +57,20 @@ public class SceneStateHandler {
 
     }
 
-    public void changeSceneAfterLogin(){
+    public void changeSceneAfterLogin(String username){
+        loggedInUser = userDatabase.getAccount(username);
+        userViewController = new UserViewController(this, loggedInUser, userDatabase, trailsDatabase);
         try {
-            loader = new FXMLLoader(getClass().getResource("view/LoginView.fxml"));
-            loader.setController(loginViewController);
-            loginParent = loader.load();
+            loader = new FXMLLoader(getClass().getResource("view/UserView.fxml"));
+            loader.setController(userViewController);
+            userViewParent = loader.load();
         }catch (IOException e){
             e.printStackTrace();
         }
 
         //Set the scenes root show it.
-        scene.setRoot(loginParent);
+        scene.setRoot(userViewParent);
+        primaryStage.setScene(scene);
         primaryStage.setTitle("Hiking App");
         primaryStage.show();
     }

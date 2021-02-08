@@ -77,9 +77,14 @@ public class Account implements Serializable, Comparable<Account> {
         return trailHistory;
     }
 
-    //TODO: Implement compareTo method.
+
     @Override
     public int compareTo(Account o) {
+        if(this.username.compareTo(o.getUsername()) > 0){
+            return 1;
+        }else if(this.username.compareTo(o.getUsername()) < 0){
+            return -1;
+        }
         return 0;
     }
 }
