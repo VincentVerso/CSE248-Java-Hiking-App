@@ -3,11 +3,18 @@ package controller;
 import app.SceneStateHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import model.*;
 
-public class UserViewController {
+import java.net.URL;
+import java.util.LinkedList;
+import java.util.ResourceBundle;
+
+public class UserViewController implements Initializable {
 
     private SceneStateHandler sceneStateHandler;
     private Account loggedInUser;
@@ -23,6 +30,8 @@ public class UserViewController {
     @FXML
     private MenuItem adminMenuBtn;
 
+    @FXML
+    private TableView<Trail> trailsTable;
 
     @FXML
     private TableColumn<Trail, String> trailNameCol;
@@ -65,7 +74,31 @@ public class UserViewController {
 
     @FXML
     public void exitEvent(ActionEvent event) {
-
+        System.exit(0);
     }
 
+    //Sets up each column with its respective field for a trial.
+    private void setupTableView(){
+        trailNameCol.setCellValueFactory(new PropertyValueFactory<>("trailName"));
+        headAddressCol.setCellValueFactory(new PropertyValueFactory<>("trailHeadAddress"));
+        lengthCol.setCellValueFactory(new PropertyValueFactory<>("length"));
+        elevationCol.setCellValueFactory(new PropertyValueFactory<>("elevationGain"));
+        difficultyCol.setCellValueFactory(new PropertyValueFactory<>("difficulty"));
+        typeCol.setCellValueFactory(new PropertyValueFactory<>("trailType"));
+    }
+
+    //Gets all the keys from the database(HashMap) and returns LinkedList<String>
+    //Then iterates through LinkedList and gets each trail and inserts into table.
+    private void loadTrailIntoTable(){
+        LinkedList<String> trailsData = trailsDatabase.getTrailNames();
+        for(String trailKey: trailsData){
+           trailsTable.getItems().add(trailsDatabase.getTrail(trailKey));
+        }
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        setupTableView();
+        loadTrailIntoTable();
+    }
 }
