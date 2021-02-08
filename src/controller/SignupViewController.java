@@ -69,8 +69,8 @@ public class SignupViewController {
         String password = passwordField.getText();
         String conPassword = conPasswordField.getText();
 
-        if(password.equals(conPassword)){
-            if(!userDatabase.contains(username)){
+        if(password.equals(conPassword)){ //Make sure passwords are the same
+            if(!userDatabase.contains(username)){ //Make sure account does not exist.
                 userDatabase.addUserAccount(new UserAccount(firstName, lastName, username, phoneNumber, phoneNumber));
                 notifyLbl.setText("Signup successful! Click Back to login.");
             }else{
@@ -81,6 +81,7 @@ public class SignupViewController {
         }
     }
 
+    //Checks for blank fields
     private boolean isSignupFieldsEmpty(){
         if(usernameField.getText().equals("") || passwordField.getText().equals("") || conPasswordField.getText().equals("") || firstNameField.getText().equals("")|| lastNameField.getText().equals("") || phoneNumField.getText().isBlank()){
             return true;

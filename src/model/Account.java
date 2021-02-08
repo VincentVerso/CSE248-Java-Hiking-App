@@ -77,6 +77,13 @@ public class Account implements Serializable, Comparable<Account> {
         return trailHistory;
     }
 
+    public boolean isHistoryEmpty(){
+        //Retrun true if empty
+        if(trailHistory.size() < 1){
+            return true;
+        }
+        return false;
+    }
 
     @Override
     public int compareTo(Account o) {

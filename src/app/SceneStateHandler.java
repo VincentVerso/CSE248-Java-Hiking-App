@@ -1,5 +1,6 @@
 package app;
 
+import controller.AdminViewController;
 import controller.LoginViewController;
 import controller.SignupViewController;
 import controller.UserViewController;
@@ -28,11 +29,13 @@ public class SceneStateHandler {
     private Parent signupParent;
 
     private Parent userViewParent;
+    private Parent adminViewParent;
 
     //The controllers for each respective scene.
     private LoginViewController loginViewController;
     private SignupViewController signupViewController;
     private UserViewController userViewController;
+    private AdminViewController adminViewController;
     private Account loggedInUser;
 
     public SceneStateHandler(Stage primaryStage){
@@ -43,7 +46,7 @@ public class SceneStateHandler {
         signupViewController = new SignupViewController(this, userDatabase);
 
         try{
-            loader = new FXMLLoader(getClass().getResource("LoginView.fxml"));
+            loader = new FXMLLoader(getClass().getResource("/view/LoginView.fxml"));
             loader.setController(loginViewController);
             loginParent = loader.load(); //Set the loginParent to the FXML that was loaded.
         }catch (IOException e){
@@ -75,10 +78,29 @@ public class SceneStateHandler {
         primaryStage.show();
     }
 
+    public void changeToAdminView(String username){
+        loggedInUser = userDatabase.getAccount(username);
+        adminViewController = new AdminViewController(this, userDatabase, trailsDatabase, loggedInUser);
+
+        try {
+            loader = new FXMLLoader(getClass().getResource("/view/AdminView.fxml"));
+            loader.setController(adminViewController);
+            adminViewParent = loader.load();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+        //Set the scenes root show it.
+        scene.setRoot(adminViewParent);
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("Hiking App");
+        primaryStage.show();
+    }
+
     //Loads the signup scene
     public void changeSceneSignup(){
         try {
-            loader = new FXMLLoader(getClass().getResource("view/SignupView.fxml"));
+            loader = new FXMLLoader(getClass().getResource("/view/SignupView.fxml"));
             loader.setController(signupViewController);
             signupParent = loader.load();
         }catch (IOException e){
@@ -94,7 +116,7 @@ public class SceneStateHandler {
 
     public void backToLoginScene(){
         try{
-            loader = new FXMLLoader(getClass().getResource("view/LoginView.fxml"));
+            loader = new FXMLLoader(getClass().getResource("/view/LoginView.fxml"));
             loader.setController(loginViewController);
             loginParent = loader.load(); //Set the loginParent to the FXML that was loaded.
         }catch (IOException e){

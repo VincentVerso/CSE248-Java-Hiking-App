@@ -59,7 +59,7 @@ public class LoginViewController {
 
     @FXML
     public void signupEvent(ActionEvent event) {
-
+        sceneStateHandler.changeSceneSignup();
     }
 
     private boolean isFieldsEmpty(){

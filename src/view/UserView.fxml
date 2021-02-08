@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -35,21 +37,21 @@
             </MenuBar>
          </top>
          <left>
-            <VBox prefHeight="524.0" prefWidth="445.0" BorderPane.alignment="CENTER">
+            <VBox prefHeight="580.0" prefWidth="454.0" BorderPane.alignment="CENTER">
                <BorderPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </BorderPane.margin>
                <children>
                   <HBox alignment="CENTER" prefHeight="14.0" prefWidth="417.0">
                      <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" text="Trails">
+                        <Label alignment="CENTER" contentDisplay="CENTER" text="Trails" textAlignment="CENTER" underline="true">
                            <font>
                               <Font size="13.0" />
                            </font>
                         </Label>
                      </children>
                   </HBox>
-                  <TableView id="trailsTable" fx:id="trailsTable" prefHeight="505.0" prefWidth="473.0">
+                  <TableView id="trailsTable" fx:id="trailsTable" onMouseClicked="#trailsTableClickEvent" prefHeight="557.0" prefWidth="444.0">
                     <columns>
                       <TableColumn id="trailNameCol" fx:id="trailNameCol" prefWidth="113.0" text="Name" />
                       <TableColumn id="headAddressCol" fx:id="headAddressCol" prefWidth="94.0" text="Head Address" />
@@ -58,13 +60,67 @@
                         <TableColumn id="difficultyCol" fx:id="difficultyCol" prefWidth="69.0" text="Difficulty" />
                         <TableColumn id="typeCol" fx:id="typeCol" prefWidth="44.0" text="Type" />
                     </columns>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
                   </TableView>
                </children>
             </VBox>
          </left>
          <bottom>
-            <HBox prefHeight="161.0" prefWidth="1280.0" BorderPane.alignment="CENTER" />
+            <HBox prefHeight="119.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="126.0" prefWidth="455.0">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="37.0" prefWidth="640.0">
+                           <children>
+                              <TextField id="searchField" fx:id="searchField" onKeyPressed="#onSearchEvent" promptText="Search">
+                                 <HBox.margin>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </HBox.margin>
+                              </TextField>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="24.0" prefWidth="640.0">
+                           <children>
+                              <Button id="takeTrailBtn" fx:id="takeTrailBtn" mnemonicParsing="false" onAction="#onTakeTralilEvent" text="Take Trail">
+                                 <HBox.margin>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button id="completeTrailBtn" fx:id="completeTrailBtn" layoutX="297.0" layoutY="15.0" mnemonicParsing="false" onAction="#onCompleteTralilEvent" text="Complete Trail">
+                                 <HBox.margin>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox layoutX="10.0" layoutY="10.0" prefHeight="161.0" prefWidth="640.0" />
+               </children>
+            </HBox>
          </bottom>
+         <right>
+            <VBox alignment="CENTER" prefHeight="524.0" prefWidth="411.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label alignment="CENTER" text="Hstory" textAlignment="CENTER" underline="true" />
+                  <TableView id="historyTable" fx:id="historyTable" prefHeight="541.0" prefWidth="392.0">
+                    <columns>
+                      <TableColumn id="hisTrailNameCol" fx:id="hisTrailNameCol" prefWidth="139.0" text="Name" />
+                      <TableColumn id="hisDateCompletedCol" fx:id="hisDateCompletedCol" prefWidth="113.0" text="Date Completed" />
+                        <TableColumn id="timeElapsedCol" fx:id="timeElapsedCol" prefWidth="135.0" text="Time Elapsed(H:M:S)" />
+                    </columns>
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </TableView>
+               </children>
+               <BorderPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </BorderPane.margin>
+            </VBox>
+         </right>
       </BorderPane>
    </children>
 </AnchorPane>

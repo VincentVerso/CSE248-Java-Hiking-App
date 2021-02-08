@@ -4,13 +4,14 @@ import app.SceneStateHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import model.*;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
 
@@ -20,6 +21,7 @@ public class UserViewController implements Initializable {
     private Account loggedInUser;
     private UserDatabase userDatabase;
     private TrailsDatabase trailsDatabase;
+    private Trail selectedTrail;
 
     @FXML
     private MenuItem editAccMenuBtn;
@@ -51,6 +53,28 @@ public class UserViewController implements Initializable {
     @FXML
     private TableColumn<Trail, TrailType> typeCol;
 
+    @FXML
+    private TextField searchField;
+
+    @FXML
+    private Button takeTrailBtn;
+
+    @FXML
+    private Button completeTrailBtn;
+
+    @FXML
+    private TableView<TrailEntry> historyTable;
+
+    @FXML
+    private TableColumn<TrailEntry, String> hisTrailNameCol;
+
+    @FXML
+    private TableColumn<TrailEntry, LocalDate> hisDateCompletedCol;
+
+    @FXML
+    private TableColumn<TrailEntry, String> timeElapsedCol;
+
+
     public UserViewController(SceneStateHandler sceneStateHandler, Account loggedInUser, UserDatabase userDatabase, TrailsDatabase trailsDatabase){
         this.sceneStateHandler = sceneStateHandler;
         this.loggedInUser = loggedInUser;
@@ -73,8 +97,28 @@ public class UserViewController implements Initializable {
     }
 
     @FXML
+    public void onCompleteTralilEvent(ActionEvent event) {
+
+    }
+
+    @FXML
+    public void onSearchEvent(KeyEvent event) {
+
+    }
+
+    @FXML
+    public void onTakeTralilEvent(ActionEvent event) {
+
+    }
+
+    @FXML
     public void exitEvent(ActionEvent event) {
         System.exit(0);
+    }
+
+    @FXML
+    public void trailsTableClickEvent(MouseEvent event) {
+        selectedTrail = trailsTable.getSelectionModel().getSelectedItem();
     }
 
     //Sets up each column with its respective field for a trial.
@@ -98,6 +142,13 @@ public class UserViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        if(loggedInUser instanceof AdminAccount){
+            //If the user is an Admin, enable this button.
+            adminMenuBtn.setDisable(false);
+        }else {
+            adminMenuBtn.setDisable(true);
+        }
         setupTableView();
         loadTrailIntoTable();
     }

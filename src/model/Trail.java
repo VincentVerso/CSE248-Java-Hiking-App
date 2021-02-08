@@ -2,10 +2,8 @@ package model;
 
 import java.io.Serializable;
 
-public class Trail implements Serializable {
+public class Trail implements Serializable, Comparable<Trail> {
     private static final long serialVersionUID = 4871767531869058049L;
-
-    //TODO: Implement Comparable interface
 
     private String trailName;
     private String trailHeadAddress;
@@ -65,5 +63,15 @@ public class Trail implements Serializable {
 
     public void setTrailType(TrailType trailType) {
         this.trailType = trailType;
+    }
+
+    @Override
+    public int compareTo(Trail o) {
+        if(this.trailName.compareTo(o.getTrailName()) > 0){
+            return 1;
+        }else if(this.trailName.compareTo(o.getTrailName()) < 0){
+            return -1;
+        }
+        return 0;
     }
 }

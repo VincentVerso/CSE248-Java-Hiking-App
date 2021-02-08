@@ -16,6 +16,10 @@ public class TrailsDatabase implements Serializable {
         //addTrail(new Trail("Test Trail", "5 Test Ave., NY", 5, 2, TrailDifficulty.EASY, TrailType.LOOP));
     }
 
+    public HashMap<String, Trail> getTrailDatabase(){
+        return trailDatabase;
+    }
+
     public LinkedList<String> getTrailNames(){
         LinkedList<String> names = new LinkedList<String>(trailDatabase.keySet());
         return names;
