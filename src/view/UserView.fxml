@@ -72,6 +72,11 @@
                <children>
                   <VBox alignment="CENTER" prefHeight="126.0" prefWidth="455.0">
                      <children>
+                        <Label id="notifyLbl" fx:id="notifyLbl">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Label>
                         <HBox alignment="CENTER" prefHeight="37.0" prefWidth="640.0">
                            <children>
                               <TextField id="searchField" fx:id="searchField" onKeyPressed="#onSearchEvent" promptText="Search">
@@ -83,12 +88,12 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="24.0" prefWidth="640.0">
                            <children>
-                              <Button id="takeTrailBtn" fx:id="takeTrailBtn" mnemonicParsing="false" onAction="#onTakeTralilEvent" text="Take Trail">
+                              <Button id="takeTrailBtn" fx:id="takeTrailBtn" mnemonicParsing="false" onAction="#onTakeTrailEvent" text="Take Trail">
                                  <HBox.margin>
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button id="completeTrailBtn" fx:id="completeTrailBtn" layoutX="297.0" layoutY="15.0" mnemonicParsing="false" onAction="#onCompleteTralilEvent" text="Complete Trail">
+                              <Button id="completeTrailBtn" fx:id="completeTrailBtn" layoutX="297.0" layoutY="15.0" mnemonicParsing="false" onAction="#onCompleteTrailEvent" text="Complete Trail">
                                  <HBox.margin>
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </HBox.margin>

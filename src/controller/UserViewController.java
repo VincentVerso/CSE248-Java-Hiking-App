@@ -74,6 +74,8 @@ public class UserViewController implements Initializable {
     @FXML
     private TableColumn<TrailEntry, String> timeElapsedCol;
 
+    @FXML
+    private Label notifyLbl;
 
     public UserViewController(SceneStateHandler sceneStateHandler, Account loggedInUser, UserDatabase userDatabase, TrailsDatabase trailsDatabase){
         this.sceneStateHandler = sceneStateHandler;
@@ -97,8 +99,12 @@ public class UserViewController implements Initializable {
     }
 
     @FXML
-    public void onCompleteTralilEvent(ActionEvent event) {
-
+    public void onCompleteTrailEvent(ActionEvent event) {
+        if(loggedInUser.isCurrentlyTakingTrail()){
+            loggedInUser.completeCurrentTrail();
+        }else{
+            notifyLbl.setText("You are not currently taking a trail!");
+        }
     }
 
     @FXML
@@ -107,8 +113,19 @@ public class UserViewController implements Initializable {
     }
 
     @FXML
-    public void onTakeTralilEvent(ActionEvent event) {
+    public void onTakeTrailEvent(ActionEvent event) {
+        if(loggedInUser.isCurrentlyTakingTrail()){
+            notifyLbl.setText("You can take another trail after completing current trail.");
+            return;
+        }
 
+        selectedTrail = trailsTable.getSelectionModel().getSelectedItem();
+        if(selectedTrail == null){
+            return;
+        }
+        TrailEntry entry = new TrailEntry(selectedTrail);
+        loggedInUser.setCurrentTrail(entry);
+        notifyLbl.setText("Successfully taken trail!");
     }
 
     @FXML

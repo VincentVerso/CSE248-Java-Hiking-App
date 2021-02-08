@@ -18,6 +18,10 @@ public class Account implements Serializable, Comparable<Account> {
     private TreeMap<LocalDate, LinkedList<TrailEntry>> trailHistory;
 
     //The trail the user is currently doing.
+    //A trail is only added to history once its completed.
+    //The start date and time is set in the trail entry on instantiation.
+    //Once the currentTrail is completed, a method is called in the trail entry object
+    //to compute the time elapsed.
     private TrailEntry currentTrail;
 
     public Account(String firstName, String lastName, String username, String phoneNumber, String password){
@@ -27,6 +31,43 @@ public class Account implements Serializable, Comparable<Account> {
         this.phoneNumber = phoneNumber;
         this.password = password;
         this.profileImage = "src/default.png"; //Default image location
+        trailHistory = new TreeMap<>();
+        trailHistory.put(LocalDate.now(), new LinkedList<TrailEntry>());
+    }
+
+    public boolean isCurrentlyTakingTrail(){
+        if(currentTrail != null){
+            return true;
+        }
+        return false;
+    }
+
+    public void completeCurrentTrail(){
+        //Make sure there is a current trail
+        if(isCurrentlyTakingTrail()){
+            //If the date(when trail was completed) already exists, add the current trail
+            //and set currentTrail to null.
+            if(trailHistory.containsKey(LocalDate.now())){
+                currentTrail.completeTrail(); //Set the trail entry to completed
+                trailHistory.get(LocalDate.now()).add(currentTrail);
+                currentTrail = null;
+            }else{
+                //If the date does not exist in the history add it and instantiate new LinkedList
+                //and add trail to it.
+                currentTrail.completeTrail(); //Set the trail entry to completed
+                trailHistory.put(LocalDate.now(), new LinkedList<TrailEntry>());
+                trailHistory.get(LocalDate.now()).add(currentTrail);
+                currentTrail = null;
+            }
+        }
+    }
+
+    public void setCurrentTrail(TrailEntry trailEntry){
+        this.currentTrail = trailEntry;
+    }
+
+    public TrailEntry getCurrentTrail(){
+        return currentTrail;
     }
 
     public String getFirstName() {
