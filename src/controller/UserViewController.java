@@ -5,13 +5,18 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import model.*;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.LinkedList;
@@ -103,10 +108,13 @@ public class UserViewController implements Initializable {
 
     private ObservableList<Trail> trailSearchList;
 
+    private AccountEditorController accountEditorController;
+
     public UserViewController(SceneStateHandler sceneStateHandler, Account loggedInUser, UserDatabase userDatabase, TrailsDatabase trailsDatabase){
         this.sceneStateHandler = sceneStateHandler;
         this.loggedInUser = loggedInUser;
         this.trailsDatabase = trailsDatabase;
+        accountEditorController = new AccountEditorController(loggedInUser, userDatabase);
 
         //We only want admins to have access to other users.
         if(loggedInUser instanceof AdminAccount){
@@ -116,12 +124,27 @@ public class UserViewController implements Initializable {
 
     @FXML
     public void changeAdminViewEvent(ActionEvent event) {
-
+        if(loggedInUser instanceof AdminAccount) {
+            sceneStateHandler.changeToAdminView(loggedInUser.getUsername());
+        }
     }
 
     @FXML
     public void editAccountEvent(ActionEvent event) {
+        Parent root;
+        FXMLLoader loader;
+        try{
+            loader = new FXMLLoader(getClass().getResource("/view/AccountEditorView.fxml"));
+            loader.setController(accountEditorController);
+            root = loader.load();
 
+            Stage userStage = new Stage();
+            userStage.setTitle("Profile Editor");
+            userStage.setScene(new Scene(root, 600, 400));
+            userStage.show();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     @FXML

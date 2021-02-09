@@ -110,6 +110,10 @@ public class Account implements Serializable, Comparable<Account> {
         return password;
     }
 
+    public void setPassword(String password){
+        this.password = password;
+    }
+
     public void setProfileImage(String imagePath){
         this.profileImage = imagePath;
     }
