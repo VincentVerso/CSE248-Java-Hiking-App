@@ -1,6 +1,8 @@
 package controller;
 
 import app.SceneStateHandler;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,6 +16,8 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class UserViewController implements Initializable {
 
@@ -75,7 +79,29 @@ public class UserViewController implements Initializable {
     private TableColumn<TrailEntry, String> timeElapsedCol;
 
     @FXML
+    private Label trailNameLbl;
+
+    @FXML
+    private Label trailAddressLbl;
+
+    @FXML
+    private Label trailLengthLbl;
+
+    @FXML
+    private Label elevationLbl;
+
+    @FXML
+    private Label difficultyLbl;
+
+    @FXML
+    private Label trailTypeLbl;
+
+    @FXML
     private Label notifyLbl;
+
+    private String search;
+
+    private ObservableList<Trail> trailSearchList;
 
     public UserViewController(SceneStateHandler sceneStateHandler, Account loggedInUser, UserDatabase userDatabase, TrailsDatabase trailsDatabase){
         this.sceneStateHandler = sceneStateHandler;
@@ -110,6 +136,23 @@ public class UserViewController implements Initializable {
     @FXML
     public void onSearchEvent(KeyEvent event) {
 
+        search = searchField.getText();
+        if(!search.isBlank()){
+            Set<Trail> trails = trailsDatabase.getTrailDatabase().values().stream()
+                    .filter(trail -> trail.getTrailName().contains(search) || trail.getTrailHeadAddress().contains(search) ||
+                            trail.getTrailType().toString().toLowerCase().contains(search) ||
+                            trail.getDifficulty().toString().toLowerCase().contains(search) ||
+                            trail.getDifficulty().toString().toLowerCase().contains(search) ||
+                            String.valueOf(trail.getLength()).contains(search)).collect(Collectors.toSet());
+            trailSearchList = FXCollections.observableArrayList(trails);
+            loadTrailIntoTable();
+        }else{
+            //Clear the list and table.
+            trailSearchList.clear();
+            trailsTable.getItems().clear();
+        }
+
+
     }
 
     @FXML
@@ -121,6 +164,7 @@ public class UserViewController implements Initializable {
 
         selectedTrail = trailsTable.getSelectionModel().getSelectedItem();
         if(selectedTrail == null){
+            notifyLbl.setText("No trail selected!");
             return;
         }
         TrailEntry entry = new TrailEntry(selectedTrail);
@@ -151,10 +195,13 @@ public class UserViewController implements Initializable {
     //Gets all the keys from the database(HashMap) and returns LinkedList<String>
     //Then iterates through LinkedList and gets each trail and inserts into table.
     private void loadTrailIntoTable(){
-        LinkedList<String> trailsData = trailsDatabase.getTrailNames();
-        for(String trailKey: trailsData){
-           trailsTable.getItems().add(trailsDatabase.getTrail(trailKey));
+        //LinkedList<String> trailsData = trailsDatabase.getTrailNames();
+        //If the trails search list is not empty, iterate and to table.
+        if(!trailSearchList.isEmpty()){
+            //Iterate through the list and add each trail to the table.
+            trailSearchList.forEach(trial -> trailsTable.getItems().add(trial));
         }
+
     }
 
     @Override
@@ -168,5 +215,33 @@ public class UserViewController implements Initializable {
         }
         setupTableView();
         loadTrailIntoTable();
+        checkForCurrentTrail();
+    }
+
+    //This method will check if the user is currently taking a trail.
+    //If so update the labels.
+    private void checkForCurrentTrail(){
+        if(loggedInUser.getCurrentTrail() != null){
+            updateTrailLabels();
+        }
+    }
+
+    //Updates the labels based on current trail the user is taking.
+    private void updateTrailLabels(){
+        trailNameLbl.setText("Trail Name: " + loggedInUser.getCurrentTrail().getTrail().getTrailName());
+        trailAddressLbl.setText("Trail Address: " + loggedInUser.getCurrentTrail().getTrail().getTrailHeadAddress());
+        trailLengthLbl.setText("Trail Length: " + loggedInUser.getCurrentTrail().getTrail().getLength());
+        elevationLbl.setText("Elevation Gain: " + loggedInUser.getCurrentTrail().getTrail().getElevationGain());
+        difficultyLbl.setText("Trail Difficulty: " + loggedInUser.getCurrentTrail().getTrail().getDifficulty().toString());
+        trailTypeLbl.setText("Trail Type: " + loggedInUser.getCurrentTrail().getTrail().getTrailType().toString());
+    }
+
+    private void resetLabels(){
+        trailNameLbl.setText("Trail Name: ");
+        trailAddressLbl.setText("Trail Address: ");
+        trailLengthLbl.setText("Trail Length: ");
+        elevationLbl.setText("Elevation Gain: ");
+        difficultyLbl.setText("Trail Difficulty: ");
+        trailTypeLbl.setText("Trail Type: ");
     }
 }
