@@ -19,6 +19,7 @@ import model.*;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -105,9 +106,7 @@ public class UserViewController implements Initializable {
     private Label notifyLbl;
 
     private String search;
-
     private ObservableList<Trail> trailSearchList;
-
     private AccountEditorController accountEditorController;
 
     public UserViewController(SceneStateHandler sceneStateHandler, Account loggedInUser, UserDatabase userDatabase, TrailsDatabase trailsDatabase){
@@ -151,6 +150,8 @@ public class UserViewController implements Initializable {
     public void onCompleteTrailEvent(ActionEvent event) {
         if(loggedInUser.isCurrentlyTakingTrail()){
             loggedInUser.completeCurrentTrail();
+            loadHistory();
+            notifyLbl.setText("Trail completed!");
         }else{
             notifyLbl.setText("You are not currently taking a trail!");
         }
@@ -168,14 +169,17 @@ public class UserViewController implements Initializable {
                             trail.getDifficulty().toString().toLowerCase().contains(search) ||
                             String.valueOf(trail.getLength()).contains(search)).collect(Collectors.toSet());
             trailSearchList = FXCollections.observableArrayList(trails);
-            loadTrailIntoTable();
+            if(!trails.isEmpty()) {
+                trailsTable.getItems().clear();
+                loadTrailIntoTable();
+            }
         }else{
             //Clear the list and table.
-            trailSearchList.clear();
-            trailsTable.getItems().clear();
+            if(!trailsTable.getItems().isEmpty()) {
+                trailSearchList.clear();
+                trailsTable.getItems().clear();
+            }
         }
-
-
     }
 
     @FXML
@@ -192,6 +196,7 @@ public class UserViewController implements Initializable {
         }
         TrailEntry entry = new TrailEntry(selectedTrail);
         loggedInUser.setCurrentTrail(entry);
+        updateTrailLabels();
         notifyLbl.setText("Successfully taken trail!");
     }
 
@@ -203,6 +208,7 @@ public class UserViewController implements Initializable {
     @FXML
     public void trailsTableClickEvent(MouseEvent event) {
         selectedTrail = trailsTable.getSelectionModel().getSelectedItem();
+        System.out.println("Trail selected. " + selectedTrail.toString());
     }
 
     //Sets up each column with its respective field for a trial.
@@ -213,6 +219,10 @@ public class UserViewController implements Initializable {
         elevationCol.setCellValueFactory(new PropertyValueFactory<>("elevationGain"));
         difficultyCol.setCellValueFactory(new PropertyValueFactory<>("difficulty"));
         typeCol.setCellValueFactory(new PropertyValueFactory<>("trailType"));
+
+        hisTrailNameCol.setCellValueFactory(new PropertyValueFactory<>("trailName"));
+        hisDateCompletedCol.setCellValueFactory(new PropertyValueFactory<>("dateTimeCompleted"));
+        timeElapsedCol.setCellValueFactory(new PropertyValueFactory<>("timeElapsed"));
     }
 
     //Gets all the keys from the database(HashMap) and returns LinkedList<String>
@@ -222,9 +232,31 @@ public class UserViewController implements Initializable {
         //If the trails search list is not empty, iterate and to table.
         if(!trailSearchList.isEmpty()){
             //Iterate through the list and add each trail to the table.
-            trailSearchList.forEach(trial -> trailsTable.getItems().add(trial));
+            trailSearchList.forEach((trail) ->{
+              if(!trailsTable.getItems().contains(trail)){
+                  trailsTable.getItems().add(trail);
+              }
+            });
+        }
+    }
+
+    private void loadHistory(){
+        Collection<LinkedList<TrailEntry>> history = loggedInUser.getTrailHistory().values();
+
+        //This is necessary to not have duplicate values after updating history when a trail is completed.
+        //This will also keep things in proper order.
+        if(!historyTable.getItems().isEmpty()){
+            historyTable.getItems().clear();
         }
 
+        //Display history in trials history table.
+        for(LinkedList<TrailEntry> list : history){
+            if(!list.isEmpty()){ //Ensure there are values in the list
+                for(TrailEntry trail : list){
+                    historyTable.getItems().add(trail);
+                }
+            }
+        }
     }
 
     @Override
@@ -237,7 +269,7 @@ public class UserViewController implements Initializable {
             adminMenuBtn.setDisable(true);
         }
         setupTableView();
-        loadTrailIntoTable();
+        //loadTrailIntoTable();
         checkForCurrentTrail();
     }
 

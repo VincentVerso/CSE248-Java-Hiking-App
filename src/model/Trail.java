@@ -65,6 +65,10 @@ public class Trail implements Serializable, Comparable<Trail> {
         this.trailType = trailType;
     }
 
+    public String toString(){
+        return trailName + " Length: " + length + " Difficulty: " + difficulty.toString();
+    }
+
     @Override
     public int compareTo(Trail o) {
         if(this.trailName.compareTo(o.getTrailName()) > 0){

@@ -13,7 +13,9 @@ public class TrailsDatabase implements Serializable {
 
     public TrailsDatabase(){
         trailDatabase = new HashMap<String, Trail>(50000, .5f);
-        //addTrail(new Trail("Test Trail", "5 Test Ave., NY", 5, 2, TrailDifficulty.EASY, TrailType.LOOP));
+        addTrail(new Trail("Test Trail", "5 Test Ave., NY", 5, 2, TrailDifficulty.EASY, TrailType.LOOP));
+        addTrail(new Trail("A Trail", "52 Test Ave., NY", 8, 10, TrailDifficulty.MODERATE, TrailType.LOOP));
+        DataSaver.saveTrailsData(this);
     }
 
     public HashMap<String, Trail> getTrailDatabase(){

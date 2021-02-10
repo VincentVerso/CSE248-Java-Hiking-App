@@ -11,7 +11,7 @@ public class UserDatabase implements Serializable{
     public UserDatabase(){
         userDatabase = new TreeMap<String, Account>();
         addUserAccount(new AdminAccount("Vinny", "Verso", "Vin", "6311234567", "pass1234"));
-
+        DataSaver.saveUserDatabase(this);
     }
 
     //Checks to see if a user is already in the database.

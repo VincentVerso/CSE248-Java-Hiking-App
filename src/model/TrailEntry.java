@@ -39,6 +39,14 @@ public class TrailEntry implements Serializable {
         return trail;
     }
 
+    public String getTrailName(){
+        return trailName;
+    }
+
+    public LocalDateTime getDateTimeCompleted(){
+        return dateTimeCompleted;
+    }
+
     public String getTimeElapsed(){
         return timeElapsed;
     }

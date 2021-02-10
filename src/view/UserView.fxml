@@ -36,7 +36,7 @@
             </MenuBar>
          </top>
          <left>
-            <VBox prefHeight="580.0" prefWidth="454.0" BorderPane.alignment="CENTER">
+            <VBox prefHeight="561.0" prefWidth="478.0" BorderPane.alignment="CENTER">
                <BorderPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </BorderPane.margin>
@@ -50,14 +50,14 @@
                         </Label>
                      </children>
                   </HBox>
-                  <TableView id="trailsTable" fx:id="trailsTable" onMouseClicked="#trailsTableClickEvent" prefHeight="543.0" prefWidth="444.0">
+                  <TableView id="trailsTable" fx:id="trailsTable" onMouseClicked="#trailsTableClickEvent" prefHeight="532.0" prefWidth="456.0">
                     <columns>
                       <TableColumn id="trailNameCol" fx:id="trailNameCol" prefWidth="113.0" text="Name" />
                       <TableColumn id="headAddressCol" fx:id="headAddressCol" prefWidth="94.0" text="Head Address" />
-                        <TableColumn id="lengthCol" fx:id="lengthCol" prefWidth="55.0" text="Length" />
-                        <TableColumn id="elevationCol" fx:id="elevationCol" prefWidth="66.0" text="Elevation" />
-                        <TableColumn id="difficultyCol" fx:id="difficultyCol" prefWidth="69.0" text="Difficulty" />
-                        <TableColumn id="typeCol" fx:id="typeCol" prefWidth="44.0" text="Type" />
+                        <TableColumn id="lengthCol" fx:id="lengthCol" prefWidth="73.0" text="Length(MI)" />
+                        <TableColumn id="elevationCol" fx:id="elevationCol" prefWidth="83.0" text="Elevation(MI)" />
+                        <TableColumn id="difficultyCol" fx:id="difficultyCol" prefWidth="61.0" text="Difficulty" />
+                        <TableColumn id="typeCol" fx:id="typeCol" prefWidth="43.0" text="Type" />
                     </columns>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -117,9 +117,9 @@
                      </font></Label>
                   <TableView id="historyTable" fx:id="historyTable" prefHeight="536.0" prefWidth="411.0">
                     <columns>
-                      <TableColumn id="hisTrailNameCol" fx:id="hisTrailNameCol" prefWidth="139.0" text="Name" />
-                      <TableColumn id="hisDateCompletedCol" fx:id="hisDateCompletedCol" prefWidth="113.0" text="Date Completed" />
-                        <TableColumn id="timeElapsedCol" fx:id="timeElapsedCol" prefWidth="135.0" text="Time Elapsed(H:M:S)" />
+                      <TableColumn id="hisTrailNameCol" fx:id="hisTrailNameCol" prefWidth="160.0" text="Name" />
+                      <TableColumn id="hisDateCompletedCol" fx:id="hisDateCompletedCol" prefWidth="117.0" text="Date Completed" />
+                        <TableColumn id="timeElapsedCol" fx:id="timeElapsedCol" prefWidth="132.0" text="Time Elapsed(H:M:S)" />
                     </columns>
                      <VBox.margin>
                         <Insets top="5.0" />
