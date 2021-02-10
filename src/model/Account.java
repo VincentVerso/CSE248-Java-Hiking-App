@@ -30,7 +30,7 @@ public class Account implements Serializable, Comparable<Account> {
         this.username = username;
         this.phoneNumber = phoneNumber;
         this.password = password;
-        this.profileImage = "src/default.png"; //Default image location
+        this.profileImage = "/src/default.png"; //Default image location
         trailHistory = new TreeMap<>();
         trailHistory.put(LocalDate.now(), new LinkedList<TrailEntry>());
     }

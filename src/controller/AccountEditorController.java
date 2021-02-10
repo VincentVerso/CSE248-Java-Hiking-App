@@ -122,7 +122,7 @@ public class AccountEditorController implements Initializable {
         lastNameLbl.setText("Last Name: " + account.getLastName());
         usernameLbl.setText("Username: " + account.getUsername());
         phoneNumberLbl.setText("Phone Number: " + account.getPhoneNumber());
-        profilePic.setImage(new Image(account.getProfileImage()));
+        profilePic.setImage(new Image("resources/default.png"));
     }
 
     @Override

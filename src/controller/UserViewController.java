@@ -208,7 +208,9 @@ public class UserViewController implements Initializable {
     @FXML
     public void trailsTableClickEvent(MouseEvent event) {
         selectedTrail = trailsTable.getSelectionModel().getSelectedItem();
-        System.out.println("Trail selected. " + selectedTrail.toString());
+        if(selectedTrail == null) {
+            System.out.println("Trail selected. " + selectedTrail.toString());
+        }
     }
 
     //Sets up each column with its respective field for a trial.
