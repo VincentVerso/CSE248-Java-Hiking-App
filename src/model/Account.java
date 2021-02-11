@@ -14,6 +14,7 @@ public class Account implements Serializable, Comparable<Account> {
     private String phoneNumber;
     private String password;
     private String profileImage; //Store the file path for the img
+    private boolean isSuspended;
 
     private TreeMap<LocalDate, LinkedList<TrailEntry>> trailHistory;
 
@@ -31,6 +32,7 @@ public class Account implements Serializable, Comparable<Account> {
         this.phoneNumber = phoneNumber;
         this.password = password;
         this.profileImage = "/src/default.png"; //Default image location
+        this.isSuspended = false;
         trailHistory = new TreeMap<>();
         trailHistory.put(LocalDate.now(), new LinkedList<TrailEntry>());
     }
@@ -116,6 +118,14 @@ public class Account implements Serializable, Comparable<Account> {
 
     public void setProfileImage(String imagePath){
         this.profileImage = imagePath;
+    }
+
+    public boolean isSuspended(){
+        return isSuspended;
+    }
+
+    public void setSuspended(boolean suspended){
+        this.isSuspended = suspended;
     }
 
     public TreeMap<LocalDate, LinkedList<TrailEntry>> getTrailHistory() {

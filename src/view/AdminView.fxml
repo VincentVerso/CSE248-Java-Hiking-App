@@ -1,13 +1,180 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <BorderPane layoutY="2.0" prefHeight="720.0" prefWidth="1280.0">
+         <top>
+            <MenuBar BorderPane.alignment="CENTER">
+              <menus>
+                <Menu mnemonicParsing="false" text="File">
+                  <items>
+                    <MenuItem id="exitMenuBtn" fx:id="exitMenuBtn" mnemonicParsing="false" onAction="#onExitEvent" text="Exit" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                  <items>
+                    <MenuItem id="userViewMenuBtn" fx:id="userViewMenuBtn" mnemonicParsing="false" onAction="#changeToUserView" text="User View" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+         </top>
+         <left>
+            <VBox alignment="CENTER" prefHeight="494.0" prefWidth="514.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label alignment="CENTER" text="Trails" textAlignment="CENTER" underline="true">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TableView id="trailsTable" fx:id="trailsTable" prefHeight="695.0" prefWidth="306.0">
+                    <columns>
+                      <TableColumn id="trailNameCol" fx:id="trailNameCol" prefWidth="113.0" text="Name" />
+                      <TableColumn id="headAddressCol" fx:id="headAddressCol" prefWidth="98.0" text="Head Address" />
+                        <TableColumn id="lengthCol" fx:id="lengthCol" prefWidth="72.0" text="Length(MI)" />
+                        <TableColumn id="elevationCol" fx:id="elevationCol" prefWidth="94.0" text="Elevation(MI)" />
+                        <TableColumn id="difficultyCol" fx:id="difficultyCol" prefWidth="76.0" text="Difficulty" />
+                        <TableColumn id="typeCol" fx:id="typeCol" prefWidth="46.0" text="Type" />
+                    </columns>
+                  </TableView>
+                  <Label id="trailsNotifyLbl" fx:id="trailsNotifyLbl" />
+               </children>
+               <BorderPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </BorderPane.margin>
+            </VBox>
+         </left>
+         <bottom>
+            <HBox alignment="CENTER" prefHeight="181.0" prefWidth="1270.0" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </BorderPane.margin>
+               <children>
+                  <VBox prefHeight="181.0" prefWidth="674.0">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="11.0" prefWidth="623.0">
+                           <children>
+                              <TextField id="trailNameField" fx:id="trailNameField" promptText="Trail Name">
+                                 <HBox.margin>
+                                    <Insets right="5.0" />
+                                 </HBox.margin>
+                              </TextField>
+                              <TextField id="headAddressField" fx:id="headAddressField" layoutX="247.0" layoutY="19.0" promptText="Head Address">
+                                 <HBox.margin>
+                                    <Insets right="5.0" />
+                                 </HBox.margin>
+                              </TextField>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="19.0" prefWidth="623.0">
+                           <children>
+                              <TextField id="lengthField" fx:id="lengthField" promptText="Length(Mi">
+                                 <HBox.margin>
+                                    <Insets right="5.0" />
+                                 </HBox.margin>
+                              </TextField>
+                              <TextField id="elevationField" fx:id="elevationField" layoutX="10.0" layoutY="10.0" promptText="Elevation Gain">
+                                 <HBox.margin>
+                                    <Insets right="5.0" />
+                                 </HBox.margin>
+                              </TextField>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox alignment="CENTER" layoutX="10.0" layoutY="52.0" prefHeight="24.0" prefWidth="623.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </VBox.margin>
+                           <children>
+                              <ComboBox id="difficultyChoice" fx:id="difficultyChoice" prefWidth="150.0">
+                                 <HBox.margin>
+                                    <Insets right="5.0" />
+                                 </HBox.margin>
+                              </ComboBox>
+                              <ComboBox id="difficultyChoice" fx:id="typeChoice" layoutX="242.0" layoutY="10.0" prefWidth="150.0">
+                                 <HBox.margin>
+                                    <Insets right="5.0" />
+                                 </HBox.margin>
+                              </ComboBox>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="29.0" prefWidth="623.0">
+                           <children>
+                              <Button id="addTrailBtn" fx:id="addTrailBtn" mnemonicParsing="false" onAction="#onAddTrailEvent" text="Add Trail">
+                                 <HBox.margin>
+                                    <Insets right="5.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button id="deleteTrailBtn" fx:id="deleteTrailBtn" layoutX="290.0" layoutY="12.0" mnemonicParsing="false" onAction="#onDeleteTrailEvent" text="Delete Trail">
+                                 <HBox.margin>
+                                    <Insets right="5.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button id="editTrailBtn" fx:id="editTrailBtn" layoutX="316.0" layoutY="12.0" mnemonicParsing="false" onAction="#onEditTrailEvent" text="Edit Trail">
+                                 <HBox.margin>
+                                    <Insets right="5.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="181.0" prefWidth="699.0" />
+               </children>
+            </HBox>
+         </bottom>
+         <right>
+            <VBox alignment="CENTER" prefHeight="494.0" prefWidth="571.0" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </BorderPane.margin>
+               <children>
+                  <Label text="Users" underline="true">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <TableView prefHeight="447.0" prefWidth="622.0">
+                    <columns>
+                      <TableColumn id="usernameCol" fx:id="usernameCol" prefWidth="129.0" text="Username" />
+                      <TableColumn id="firstNameCol" fx:id="firstNameCol" minWidth="5.0" prefWidth="122.0" text="First Name" />
+                        <TableColumn id="lastNameCol" fx:id="lastNameCol" prefWidth="118.0" text="Last Name" />
+                        <TableColumn id="phoneNumCol" fx:id="phoneNumCol" minWidth="0.0" prefWidth="118.0" text="Phone Number" />
+                        <TableColumn id="isSuspendedCol" fx:id="isSuspendedCol" prefWidth="71.0" text="Suspended" />
+                    </columns>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </TableView>
+                  <Label id="userNotifyLbl" fx:id="userNotifyLbl" />
+               </children>
+            </VBox>
+         </right>
+      </BorderPane>
+   </children>
 </AnchorPane>

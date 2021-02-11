@@ -11,14 +11,16 @@ public class Trail implements Serializable, Comparable<Trail> {
     private int elevationGain; //in feet
     private TrailDifficulty difficulty;
     private TrailType trailType;
+    private int trailId;
 
-    public Trail(String trailName, String trailHeadAddress, int length, int elevationGain, TrailDifficulty trailDifficulty, TrailType trailType){
+    public Trail(String trailName, String trailHeadAddress, int length, int elevationGain, TrailDifficulty trailDifficulty, TrailType trailType, int trailId){
         this.trailName = trailName;
         this.trailHeadAddress = trailHeadAddress;
         this.length = length;
         this.elevationGain = elevationGain;
         this.difficulty = trailDifficulty;
         this.trailType = trailType;
+        this.trailId = trailId; //Trail Id can only be set when a new trail in instantiated.
     }
 
     public String getTrailName(){
@@ -63,6 +65,10 @@ public class Trail implements Serializable, Comparable<Trail> {
 
     public void setTrailType(TrailType trailType) {
         this.trailType = trailType;
+    }
+
+    public int getTrailId(){
+        return this.trailId;
     }
 
     public String toString(){
