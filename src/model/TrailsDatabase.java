@@ -31,8 +31,8 @@ public class TrailsDatabase implements Serializable {
     }
 
     //Checks to see if the trail exists or not.
-    public boolean contains(String trailName){
-        if(trailDatabase.containsKey(trailName)){
+    public boolean contains(int trailId){
+        if(trailDatabase.containsKey(trailId)){
             return true;
         }
         return false;
@@ -43,17 +43,17 @@ public class TrailsDatabase implements Serializable {
         trailDatabase.put(String.valueOf(idCounter), new Trail(trailName, trailHeadAddress, length, elevationGain, trailDifficulty, trailType, idCounter));
     }
 
-    public boolean removeTrail(String trailName){
-        if(trailDatabase.containsKey(trailName)){
-            trailDatabase.remove(trailName);
+    public boolean removeTrail(int trailId){
+        if(trailDatabase.containsKey(trailId)){
+            trailDatabase.remove(trailId);
             return true;
         }
         return false;
     }
 
-    public Trail getTrail(String trailName){
-        if(trailDatabase.containsKey(trailName)) {
-            return trailDatabase.get(trailName);
+    public Trail getTrail(int trailId){
+        if(trailDatabase.containsKey(trailId)) {
+            return trailDatabase.get(trailId);
         }
         return null;
     }

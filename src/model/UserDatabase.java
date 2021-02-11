@@ -49,4 +49,8 @@ public class UserDatabase implements Serializable{
         return null;
     }
 
+    public TreeMap<String, Account> getUserDatabase(){
+        return userDatabase;
+    }
+
 }

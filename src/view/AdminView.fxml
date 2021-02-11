@@ -47,7 +47,7 @@
                         <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                      </VBox.margin>
                   </Label>
-                  <TableView id="trailsTable" fx:id="trailsTable" prefHeight="695.0" prefWidth="306.0">
+                  <TableView id="trailsTable" fx:id="trailsTable" onMouseClicked="#trailsTableClickEvent" prefHeight="695.0" prefWidth="306.0">
                     <columns>
                       <TableColumn id="trailNameCol" fx:id="trailNameCol" prefWidth="113.0" text="Name" />
                       <TableColumn id="headAddressCol" fx:id="headAddressCol" prefWidth="98.0" text="Head Address" />
@@ -159,7 +159,7 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <TableView prefHeight="447.0" prefWidth="622.0">
+                  <TableView id="userAccTable" fx:id="userAccTable" onMouseClicked="#onUserTableClickEvent" prefHeight="447.0" prefWidth="622.0">
                     <columns>
                       <TableColumn id="usernameCol" fx:id="usernameCol" prefWidth="129.0" text="Username" />
                       <TableColumn id="firstNameCol" fx:id="firstNameCol" minWidth="5.0" prefWidth="122.0" text="First Name" />
