@@ -38,9 +38,11 @@ public class TrailsDatabase implements Serializable {
         return false;
     }
 
-    public void addTrail(String trailName, String trailHeadAddress, int length, int elevationGain, TrailDifficulty trailDifficulty, TrailType trailType){
+    public Trail addTrail(String trailName, String trailHeadAddress, int length, int elevationGain, TrailDifficulty trailDifficulty, TrailType trailType){
         idCounter++; //increase id by 1
-        trailDatabase.put(String.valueOf(idCounter), new Trail(trailName, trailHeadAddress, length, elevationGain, trailDifficulty, trailType, idCounter));
+        Trail t = new Trail(trailName, trailHeadAddress, length, elevationGain, trailDifficulty, trailType, idCounter);
+        trailDatabase.put(String.valueOf(idCounter), t);
+        return t;
     }
 
     public boolean removeTrail(int trailId){

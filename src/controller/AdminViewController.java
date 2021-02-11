@@ -129,7 +129,38 @@ public class AdminViewController implements Initializable {
 
     @FXML
     public void onAddTrailEvent(ActionEvent event) {
+        String trailName = trailNameField.getText();
+        String trailAdd = headAddressField.getText();
+        String trailLength = lengthField.getText();
+        String elevation = elevationField.getText();
+        int length;
+        int elevationGain;
+        TrailDifficulty diff;
+        TrailType type;
 
+        if(trailName.isBlank() || trailAdd.isBlank() || trailLength.isBlank() || elevation.isBlank()){
+            trailsNotifyLbl.setText("Do not leave fields blank!");
+            return;
+        }
+
+        if(difficultySelection.isBlank() || typeSelection.isBlank()){
+            trailsNotifyLbl.setText("Difficulty or trail Type not selected!");
+            return;
+        }
+
+        if(!isInteger(trailLength) || !isInteger(elevation)){
+            trailsNotifyLbl.setText("Trail length or elevation is not an integer!");
+            return;
+        }
+
+        length = Integer.parseInt(trailLength);
+        elevationGain = Integer.parseInt(elevation);
+
+        Trail t = trailsDatabase.addTrail(trailName, trailAdd, length, elevationGain, TrailDifficulty.valueOf(difficultySelection), TrailType.valueOf(typeSelection));
+        trailsList.add(t);
+        trailsTable.getItems().add(t);
+
+        trailsNotifyLbl.setText("Trail successfully added!");
     }
 
     @FXML
@@ -149,6 +180,8 @@ public class AdminViewController implements Initializable {
             trailsNotifyLbl.setText("No trail selected!");
             return;
         }
+
+
 
     }
 
@@ -213,5 +246,15 @@ public class AdminViewController implements Initializable {
         setupTableView();
         loadTrails();
         setUpComboEvents();
+    }
+
+    private static boolean isInteger(String str){
+        try{
+            int i = Integer.parseInt(str);
+            return true;
+        }catch (NumberFormatException e){
+            System.out.println("Not an integer. Can't Parse Int.");
+        }
+        return false;
     }
 }
