@@ -152,6 +152,7 @@ public class UserViewController implements Initializable {
             loggedInUser.completeCurrentTrail();
             loadHistory();
             notifyLbl.setText("Trail completed!");
+            resetLabels();
         }else{
             notifyLbl.setText("You are not currently taking a trail!");
         }
@@ -202,6 +203,8 @@ public class UserViewController implements Initializable {
 
     @FXML
     public void exitEvent(ActionEvent event) {
+        DataSaver.saveTrailsData(trailsDatabase);
+        DataSaver.saveUserDatabase(userDatabase);
         System.exit(0);
     }
 
@@ -270,6 +273,7 @@ public class UserViewController implements Initializable {
         setupTableView();
         //loadTrailIntoTable();
         checkForCurrentTrail();
+        loadHistory();
     }
 
     //This method will check if the user is currently taking a trail.

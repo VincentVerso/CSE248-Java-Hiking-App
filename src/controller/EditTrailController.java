@@ -68,6 +68,8 @@ public class EditTrailController implements Initializable {
     public EditTrailController(Trail trail, TrailsDatabase trailsDatabase){
         this.trail = trail;
         this.trailsDatabase = trailsDatabase;
+        difficultySelection = "";
+        typeSelection = "";
         difficultyList = FXCollections.observableArrayList("EASY", "MODERATE", "HARD");
         typeList = FXCollections.observableArrayList("LOOP", "OUT_AND_BACK", "POINT_TO_POINT");
     }
@@ -91,16 +93,21 @@ public class EditTrailController implements Initializable {
             trail.setTrailHeadAddress(trailAdd);
         }
 
-        if(!trailLength.isBlank() && isInteger(trailLength)){
-            trail.setLength(Integer.parseInt(trailLength));
-        }else{
-            notifyLbl.setText("Trail length must be an integer!");
+        if(!trailLength.isBlank()) {
+            if (isInteger(trailLength)) {
+                trail.setLength(Integer.parseInt(trailLength));
+            } else {
+                notifyLbl.setText("Trail length must be an integer!");
+            }
         }
 
-        if(!elevation.isBlank() && isInteger(elevation)){
-            trail.setElevationGain(Integer.parseInt(elevation));
-        }else{
-            notifyLbl.setText("Elevation must be an integer!");
+
+        if(!elevation.isBlank()){
+            if(isInteger(elevation)) {
+                trail.setElevationGain(Integer.parseInt(elevation));
+            }else{
+                notifyLbl.setText("Elevation must be an integer!");
+            }
         }
 
         if(!difficultySelection.isBlank()){
@@ -110,7 +117,7 @@ public class EditTrailController implements Initializable {
         if(!typeSelection.isBlank()){
             trail.setTrailType(TrailType.valueOf(typeSelection));
         }
-
+        updateLabels();
         DataSaver.saveTrailsData(trailsDatabase);
 
     }
@@ -125,9 +132,20 @@ public class EditTrailController implements Initializable {
         });
     }
 
+    private void updateLabels(){
+        trailNameLbl.setText("Name: " + trail.getTrailName());
+        addressLbl.setText("Address: " + trail.getTrailHeadAddress());
+        lengthLbl.setText("Length: " + trail.getLength());
+        elevationLbl.setText("Elevation: " + trail.getElevationGain());
+        difficultyLbl.setText("Difficulty: " + trail.getDifficulty().toString());
+        typeLbl.setText("Type: " + trail.getTrailType().toString());
+
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setUpComboEvents();
+        updateLabels();
     }
 
     private static boolean isInteger(String str){

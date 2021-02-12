@@ -10,7 +10,9 @@ public class UserDatabase implements Serializable{
 
     public UserDatabase(){
         userDatabase = new TreeMap<String, Account>();
-        addUserAccount(new AdminAccount("Vinny", "Verso", "Vin", "6311234567", "pass1234"));
+        addUserAccount(new AdminAccount("Vinny", "Verso", "vin", "6311234567", "pass1234"));
+        addUserAccount(new UserAccount("John", "Doe", "john", "6311321085", "pass1234"));
+        addUserAccount(new UserAccount("Jimmy", "Doe", "jim", "6311397538", "pass1234"));
         DataSaver.saveUserDatabase(this);
     }
 

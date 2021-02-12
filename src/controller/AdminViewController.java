@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
@@ -100,6 +101,7 @@ public class AdminViewController implements Initializable {
     @FXML
     private TableColumn<Account, Boolean> isSuspendedCol;
 
+
     @FXML
     private Label userNotifyLbl;
 
@@ -165,8 +167,8 @@ public class AdminViewController implements Initializable {
         Trail t = trailsDatabase.addTrail(trailName, trailAdd, length, elevationGain, TrailDifficulty.valueOf(difficultySelection), TrailType.valueOf(typeSelection));
         trailsList.add(t);
         trailsTable.getItems().add(t);
-
         trailsNotifyLbl.setText("Trail successfully added!");
+        DataSaver.saveTrailsData(trailsDatabase);
     }
 
     @FXML
@@ -219,7 +221,9 @@ public class AdminViewController implements Initializable {
 
     @FXML
     public void onExitEvent(ActionEvent event) {
-        System.exit(1);
+        DataSaver.saveTrailsData(trailsDatabase);
+        DataSaver.saveUserDatabase(userDatabase);
+        System.exit(0);
     }
 
     private void setupTableView(){
@@ -261,6 +265,11 @@ public class AdminViewController implements Initializable {
         });
     }
 
+    private void updateLabels(){
+
+    }
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         typeChoice.setItems(typeList);
@@ -268,6 +277,7 @@ public class AdminViewController implements Initializable {
         setupTableView();
         loadTrails();
         setUpComboEvents();
+        updateLabels();
     }
 
     private static boolean isInteger(String str){

@@ -16,7 +16,8 @@ public class TrailsDatabase implements Serializable {
     public TrailsDatabase(){
         trailDatabase = new HashMap<String, Trail>(50000, .5f);
         addTrail("Test Trail", "5 Test Ave., NY", 5, 2, TrailDifficulty.EASY, TrailType.LOOP);
-        addTrail("A Trail", "52 Test Ave., NY", 8, 10, TrailDifficulty.MODERATE, TrailType.LOOP);
+        addTrail("The Ember Apex", "21 Whatever Ave., NY", 8, 10, TrailDifficulty.MODERATE, TrailType.POINT_TO_POINT);
+        addTrail("The Fever Vertex", "2 Okayr Ave., NY", 14, 6, TrailDifficulty.HARD, TrailType.OUT_AND_BACK);
         DataSaver.saveTrailsData(this);
 
     }
