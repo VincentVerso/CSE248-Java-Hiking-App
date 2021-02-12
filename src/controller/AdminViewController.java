@@ -201,6 +201,9 @@ public class AdminViewController implements Initializable {
         trailEditorController = new EditTrailController(selectedTrail, trailsDatabase, new RefreshCallback() {
             @Override
             public void refresh() {
+                //After an edit to the trail being edited in EditTrailController
+                //this method will be called so the changed will properly be
+                //reflected in the trails table view.
                 trailsTable.refresh();
             }
         });
