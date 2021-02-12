@@ -23,6 +23,10 @@ public class Trail implements Serializable, Comparable<Trail> {
         this.trailId = trailId; //Trail Id can only be set when a new trail in instantiated.
     }
 
+    public void setTrailName(String name){
+        this.trailName = name;
+    }
+
     public String getTrailName(){
         return trailName;
     }

@@ -5,13 +5,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import model.*;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -110,6 +114,8 @@ public class AdminViewController implements Initializable {
     private Trail selectedTrail;
     private Account selectedAccount;
 
+    private EditTrailController trailEditorController;
+
     public AdminViewController(SceneStateHandler sceneStateHandler, UserDatabase userDatabase, TrailsDatabase trailsDatabase, Account loggedInUser){
         this.sceneStateHandler = sceneStateHandler;
         this.userDatabase = userDatabase;
@@ -181,8 +187,24 @@ public class AdminViewController implements Initializable {
             return;
         }
 
+        trailEditorController = new EditTrailController(selectedTrail, trailsDatabase);
+        Parent root;
+        FXMLLoader loader;
 
+        try {
+            //Load the FXML file and load it.
+            loader = new FXMLLoader(getClass().getResource("/view/EditTrailView.fxml"));
+            loader.setController(trailEditorController);
+            root = loader.load();
 
+            //Create new stage and scene for the book editor and use the root loaded from FXML
+            Stage userStage = new Stage();
+            userStage.setTitle("Trail Editor");
+            userStage.setScene(new Scene(root, 600, 400));
+            userStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
