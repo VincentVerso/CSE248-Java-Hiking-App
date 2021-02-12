@@ -65,9 +65,12 @@ public class EditTrailController implements Initializable {
     private Trail trail; //Trail to edit
     private TrailsDatabase trailsDatabase;
 
-    public EditTrailController(Trail trail, TrailsDatabase trailsDatabase){
+    private RefreshCallback callback; //Used to properly refresh the table after an edit is made.
+
+    public EditTrailController(Trail trail, TrailsDatabase trailsDatabase, RefreshCallback callback){
         this.trail = trail;
         this.trailsDatabase = trailsDatabase;
+        this.callback = callback;
         difficultySelection = "";
         typeSelection = "";
         difficultyList = FXCollections.observableArrayList("EASY", "MODERATE", "HARD");
@@ -118,6 +121,7 @@ public class EditTrailController implements Initializable {
             trail.setTrailType(TrailType.valueOf(typeSelection));
         }
         updateLabels();
+        callback.refresh();
         DataSaver.saveTrailsData(trailsDatabase);
 
     }

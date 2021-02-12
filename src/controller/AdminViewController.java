@@ -84,6 +84,15 @@ public class AdminViewController implements Initializable {
     private Button editTrailBtn;
 
     @FXML
+    private Button suspendBtn;
+
+    @FXML
+    private Button makeAdminBtn;
+
+    @FXML
+    private Button makeUserBtn;
+
+    @FXML
     private TableView<Account> userAccTable;
 
     @FXML
@@ -189,7 +198,13 @@ public class AdminViewController implements Initializable {
             return;
         }
 
-        trailEditorController = new EditTrailController(selectedTrail, trailsDatabase);
+        trailEditorController = new EditTrailController(selectedTrail, trailsDatabase, new RefreshCallback() {
+            @Override
+            public void refresh() {
+                trailsTable.refresh();
+            }
+        });
+
         Parent root;
         FXMLLoader loader;
 
@@ -204,9 +219,11 @@ public class AdminViewController implements Initializable {
             userStage.setTitle("Trail Editor");
             userStage.setScene(new Scene(root, 600, 400));
             userStage.show();
+            trailsTable.refresh();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
     @FXML
@@ -217,6 +234,59 @@ public class AdminViewController implements Initializable {
     @FXML
     public void trailsTableClickEvent(MouseEvent event) {
         selectedTrail = trailsTable.getSelectionModel().getSelectedItem();
+    }
+
+    @FXML
+    public void makeAdminEvent(ActionEvent event) {
+        if(selectedAccount == null){
+            userNotifyLbl.setText("No user selected!");
+            return;
+        }
+
+        if(selectedAccount instanceof AdminAccount){
+            userNotifyLbl.setText("User is already admin!");
+            return;
+        }
+        userDatabase.removeAccount(selectedAccount.getUsername());
+        AdminAccount acc = (AdminAccount) selectedAccount;
+        userDatabase.addUserAccount(acc);
+        DataSaver.saveUserDatabase(userDatabase);
+        userNotifyLbl.setText("User " + selectedAccount.getUsername() + " is now an admin!");
+    }
+
+    @FXML
+    public void makeUserEvent(ActionEvent event) {
+        if(selectedAccount == null){
+            userNotifyLbl.setText("No user selected!");
+            return;
+        }
+
+        if(selectedAccount instanceof UserAccount){
+            userNotifyLbl.setText("User is already a user account!");
+            return;
+        }
+        userDatabase.removeAccount(selectedAccount.getUsername());
+        UserAccount acc = (UserAccount) selectedAccount;
+        userDatabase.addUserAccount(acc);
+        DataSaver.saveUserDatabase(userDatabase);
+        userNotifyLbl.setText("User " + selectedAccount.getUsername() + " is now a user account!");
+    }
+
+    @FXML
+    public void suspendUnsuspendEvent(ActionEvent event) {
+        if(selectedAccount == null){
+            userNotifyLbl.setText("No account selected!");
+            return;
+        }
+
+        if(selectedAccount.getIsSuspended()){
+            selectedAccount.setSuspended(false);
+            userNotifyLbl.setText("User " + selectedAccount.getUsername() + " is no longer suspended!");
+        }else{
+            selectedAccount.setSuspended(true);
+            userNotifyLbl.setText("User " + selectedAccount.getUsername() + " is now suspended!");
+        }
+        userAccTable.refresh();
     }
 
     @FXML
@@ -265,10 +335,6 @@ public class AdminViewController implements Initializable {
         });
     }
 
-    private void updateLabels(){
-
-    }
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -276,8 +342,8 @@ public class AdminViewController implements Initializable {
         difficultyChoice.setItems(difficultyList);
         setupTableView();
         loadTrails();
+        loadUsers();
         setUpComboEvents();
-        updateLabels();
     }
 
     private static boolean isInteger(String str){

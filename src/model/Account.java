@@ -120,7 +120,7 @@ public class Account implements Serializable, Comparable<Account> {
         this.profileImage = imagePath;
     }
 
-    public boolean isSuspended(){
+    public boolean getIsSuspended(){
         return isSuspended;
     }
 

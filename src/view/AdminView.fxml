@@ -144,7 +144,25 @@
                         </HBox>
                      </children>
                   </VBox>
-                  <VBox prefHeight="181.0" prefWidth="699.0" />
+                  <VBox prefHeight="181.0" prefWidth="699.0">
+                     <children>
+                        <HBox alignment="TOP_CENTER" prefHeight="195.0" prefWidth="648.0">
+                           <children>
+                              <Button id="suspendBtn" fx:id="suspendBtn" mnemonicParsing="false" onAction="#suspendUnsuspendEvent" text="Suspend/Unsuspend">
+                                 <HBox.margin>
+                                    <Insets right="5.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button id="makeAdminBtn" fx:id="makeAdminBtn" layoutX="308.0" layoutY="88.0" mnemonicParsing="false" onAction="#makeAdminEvent" text="Make Admin">
+                                 <HBox.margin>
+                                    <Insets right="5.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button id="makeUserBtn" fx:id="makeUserBtn" layoutX="355.0" layoutY="10.0" mnemonicParsing="false" onAction="#makeUserEvent" text="Make User" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
                </children>
             </HBox>
          </bottom>
